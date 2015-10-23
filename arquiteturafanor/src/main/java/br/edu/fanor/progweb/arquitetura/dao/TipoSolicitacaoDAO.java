@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.edu.fanor.progweb.arquitetura.entity.Aluno;
 import br.edu.fanor.progweb.arquitetura.entity.TipoSolicitacao;
 
 /**

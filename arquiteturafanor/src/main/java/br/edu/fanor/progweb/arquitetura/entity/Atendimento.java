@@ -1,14 +1,14 @@
 package br.edu.fanor.progweb.arquitetura.entity;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,13 +22,12 @@ public class Atendimento {
 	private Long id;
 	
 	@Temporal(TemporalType.DATE)
-	private Calendar data;
+	private Date data;
 	
 	@Temporal(TemporalType.TIME)
-	private Calendar hora;
+	private Date hora;
 	
-	@ManyToOne
-	@JoinColumn(name = "solicitacao_id")
+	@OneToMany(mappedBy="atendimento", fetch=FetchType.LAZY)
 	private List<Solicitacao> solicitacoes;
 
 	public Long getId() {
@@ -39,19 +38,19 @@ public class Atendimento {
 		this.id = id;
 	}
 
-	public Calendar getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(Calendar data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 
-	public Calendar getHora() {
+	public Date getHora() {
 		return hora;
 	}
 
-	public void setHora(Calendar hora) {
+	public void setHora(Date hora) {
 		this.hora = hora;
 	}
 
@@ -62,6 +61,5 @@ public class Atendimento {
 	public void setSolicitacoes(List<Solicitacao> solicitacoes) {
 		this.solicitacoes = solicitacoes;
 	}
-	
 	
 }

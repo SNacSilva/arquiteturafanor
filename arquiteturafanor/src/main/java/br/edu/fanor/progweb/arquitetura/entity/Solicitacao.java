@@ -1,7 +1,6 @@
 package br.edu.fanor.progweb.arquitetura.entity;
 
-import java.util.Calendar;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,10 +23,10 @@ public class Solicitacao {
 	private String solicitante;
 	
 	@Temporal(TemporalType.DATE)
-	private Calendar data;
+	private Date data;
 	
 	@Temporal(TemporalType.TIME)
-	private Calendar hora;
+	private Date hora;
 	
 	@ManyToOne
 	@JoinColumn(name= "tipo_solicitacao_id")
@@ -36,11 +34,12 @@ public class Solicitacao {
 	
 	@ManyToOne
 	@JoinColumn(name = "status_id")
-	private List<Status> status;
+	private Status status;
 	
 	private String descricao;
 	
-	@OneToMany(mappedBy = "Atendimento")
+	@ManyToOne
+	@JoinColumn(name="atendimento_id")
 	private Atendimento atendimento;
 
 	public Long getId() {
@@ -59,6 +58,22 @@ public class Solicitacao {
 		this.solicitante = solicitante;
 	}
 
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	public Date getHora() {
+		return hora;
+	}
+
+	public void setHora(Date hora) {
+		this.hora = hora;
+	}
+
 	public TipoSolicitacao getTipoSolicitacao() {
 		return tipoSolicitacao;
 	}
@@ -67,11 +82,11 @@ public class Solicitacao {
 		this.tipoSolicitacao = tipoSolicitacao;
 	}
 
-	public List<Status> getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(List<Status> status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
@@ -90,7 +105,5 @@ public class Solicitacao {
 	public void setAtendimento(Atendimento atendimento) {
 		this.atendimento = atendimento;
 	}
-	
-	
 	
 }

@@ -3,11 +3,13 @@ package br.edu.fanor.progweb.arquitetura.entity;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.edu.fanor.progweb.arquitetura.entity.examples.Usuarios;
@@ -20,13 +22,11 @@ public class Alocado {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	
 	@ManyToOne
-	@JoinColumn(name = "usuario_id")
-	private List<Usuarios> usuarios;
+	@JoinColumn(name="usuario_id")
+	private Usuarios usuarios;
 	
-	@ManyToOne
-	@JoinColumn(name = "curso_id")
+	@OneToMany(mappedBy="alocado", fetch=FetchType.LAZY)
 	private List<Curso> cursos;
 
 	public Long getId() {
@@ -37,11 +37,11 @@ public class Alocado {
 		this.id = id;
 	}
 
-	public List<Usuarios> getUsuarios() {
+	public Usuarios getUsuarios() {
 		return usuarios;
 	}
 
-	public void setUsuarios(List<Usuarios> usuarios) {
+	public void setUsuarios(Usuarios usuarios) {
 		this.usuarios = usuarios;
 	}
 
@@ -52,7 +52,5 @@ public class Alocado {
 	public void setCursos(List<Curso> cursos) {
 		this.cursos = cursos;
 	}
-	
-	
 	
 }

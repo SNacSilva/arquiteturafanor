@@ -1,51 +1,32 @@
 package br.edu.fanor.progweb.arquitetura.entity;
 
-import java.util.List;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 public class Coordenador {
-
 	
-	@ManyToMany(mappedBy = "Usuario")
-	private List<Usuario> usuarios;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	
-	/* 
-	 * @ManyToOne
-	 
-	@JoinColumn(name = "tipo_funcionario_id")
-	private List<TipoFuncionario> funcionarios;
-	
-	*/
-	
-	@OneToMany
-	@JoinColumn(name = "usuario_id")
+	@ManyToOne
+	@JoinColumn(name = "alocado_id")
 	private Alocado alocado;
 	
-	@OneToMany
-	@JoinColumn(name = "usuario_id")
+	@ManyToOne
+	@JoinColumn(name = "solicitacao_id")
 	private TipoSolicitacao solicitacao;
 
-	public List<Usuario> getUsuarios() {
-		return usuarios;
+	public Long getId() {
+		return id;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	
-	/*
-	public List<TipoFuncionario> getFuncionarios() {
-		return funcionarios;
-	}
-	
-
-	public void setFuncionarios(List<TipoFuncionario> funcionarios) {
-		this.funcionarios = funcionarios;
-	}
-	*/
 
 	public Alocado getAlocado() {
 		return alocado;
@@ -62,7 +43,4 @@ public class Coordenador {
 	public void setSolicitacao(TipoSolicitacao solicitacao) {
 		this.solicitacao = solicitacao;
 	}
-	
-	
-	
 }

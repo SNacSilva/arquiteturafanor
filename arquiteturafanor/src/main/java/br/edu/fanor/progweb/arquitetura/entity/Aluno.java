@@ -3,6 +3,9 @@ package br.edu.fanor.progweb.arquitetura.entity;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -11,6 +14,10 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Aluno {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 
 	@OneToOne
 	@JoinColumn(name = "usuario_id")
@@ -20,11 +27,19 @@ public class Aluno {
 	@JoinColumn(name = "curso_id")
 	private List<Curso> cursos;
 
-	public Usuario getUsuarios() {
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Usuario getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuarios(Usuario usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
@@ -35,6 +50,5 @@ public class Aluno {
 	public void setCursos(List<Curso> cursos) {
 		this.cursos = cursos;
 	}
-	
 	
 }

@@ -3,7 +3,7 @@ package br.edu.fanor.progweb.arquitetura.bussines;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +19,8 @@ import br.edu.fanor.progweb.arquitetura.exceptions.DAOException;
  * 
  */
 @Loggable
-@Service
+@Component
+@Transactional(propagation=Propagation.REQUIRED)
 public class UsuarioBO {
 
 	@Autowired

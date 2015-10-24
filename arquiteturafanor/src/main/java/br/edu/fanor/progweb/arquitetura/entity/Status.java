@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,9 +16,6 @@ public class Status {
 	
 	private String descricoes;
 	
-	@OneToMany(mappedBy = "Solicitacoes")
-	private Solicitacao solitacoes;
-
 	public Long getId() {
 		return id;
 	}
@@ -34,15 +30,6 @@ public class Status {
 
 	public void setDescricoes(String descricoes) {
 		this.descricoes = descricoes;
-	}
-
-	public Solicitacao getSolitacoes() {
-		return solitacoes;
-	}
-
-	public void setSolitacoes(Solicitacao solitacoes) {
-		this.solitacoes = solitacoes;
-	}
-	
+	}	
 	
 }

@@ -1,5 +1,6 @@
 package br.edu.fanor.progweb.arquitetura.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,19 +12,37 @@ import javax.persistence.Table;
 public class TipoSolicitacao {
 
 	@Id
+	@Column(name = "tipo_solicitacao_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String tipoSolicitacao;
+	@Column(name = "nome_tipo_solicitacao")
+	private String nome;
 	
+	@Column
 	private String descricao;
-	
+
+	public TipoSolicitacao(Long id, String nome, String descricao) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+	}
+
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getDescricao() {
@@ -33,14 +52,4 @@ public class TipoSolicitacao {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-	public String getTipoSolicitacao() {
-		return tipoSolicitacao;
-	}
-
-	public void setTipoSolicitacao(String tipoSolicitacao) {
-		this.tipoSolicitacao = tipoSolicitacao;
-	}
-	
-	
 }

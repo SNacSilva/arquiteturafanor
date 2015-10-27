@@ -1,9 +1,13 @@
 package br.edu.fanor.progweb.arquitetura.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -12,36 +16,32 @@ import javax.persistence.Table;
 public class Usuario {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "usuario_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String matricula;
-	
-	private String login;
-	
+	@Column(name = "nome_usuario")
 	private String nome;
 	
+	@Column
+	private String matricula;
+	
+	@Column
+	private String login;	
+	
+	@Column
 	private String senha;
 	
-	@OneToOne(mappedBy = "Coordenador")
-	/*
-	 * @JoinTable(name = "funcionario",
-			joinColumns = @JoinColumn(name="usuario_id",referencedColumnName="id"),
-			inverseJoinColumns=@JoinColumn(name="funcionario_id" ,referencedColumnName="id"))
-	*/
-	private Coordenador coordenador;
-	
-	@OneToOne(mappedBy = "Aluno")
-	private Aluno aluno;
+	@ManyToOne
+	@JoinColumn(name = "curso_fk", referencedColumnName = "curso_id")
+	private Curso curso;
 
-	public Usuario() {
-	}
-
-	public Usuario(String matricula, String login, String nome, String senha) {
+	public Usuario(String matricula, String login, String nome, String senha, Curso curso) {
 		this.matricula = matricula;
 		this.login = login;
 		this.nome = nome;
 		this.senha = senha;
+		this.curso = curso;
 	}
 
 	public Long getId() {
@@ -83,22 +83,4 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
-	public Coordenador getCoordenador() {
-		return coordenador;
-	}
-
-	public void setFuncionarios(Coordenador coordenador) {
-		this.coordenador = coordenador;
-	}
-
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setFuncionarios(Aluno aluno) {
-		this.aluno = aluno;
-	}
-	
-	
 }

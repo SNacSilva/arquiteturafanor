@@ -2,12 +2,16 @@ package br.edu.fanor.progweb.arquitetura.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,30 +21,38 @@ import javax.persistence.TemporalType;
 public class Solicitacao {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "solicitacao_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String solicitante;
-	
-	@Temporal(TemporalType.DATE)
-	private Date data;
-	
-	@Temporal(TemporalType.TIME)
-	private Date hora;
+	@ManyToOne
+	@JoinColumn(name = "solicitante_usuario_fk", referencedColumnName = "usuario_id")
+	private Usuario solicitante;		
 	
 	@ManyToOne
-	@JoinColumn(name= "tipo_solicitacao_id")
+	@JoinColumn(name = "tipo_solicitacao_fk", referencedColumnName = "tipo_solicitacao_id")
 	private TipoSolicitacao tipoSolicitacao;
 	
-	@ManyToOne
-	@JoinColumn(name = "status_id")
-	private Status status;
+	@Column(name = "status_id")
+	private int status;
 	
+	@Column
 	private String descricao;
 	
-	@ManyToOne
-	@JoinColumn(name="atendimento_id")
+	@OneToOne(mappedBy = "solicitacao")
 	private Atendimento atendimento;
+
+	
+	public Solicitacao(Long id, Usuario solicitante,
+			TipoSolicitacao tipoSolicitacao, int status, String descricao,
+			Atendimento atendimento) {
+		this.id = id;
+		this.solicitante = solicitante;
+		this.tipoSolicitacao = tipoSolicitacao;
+		this.status = status;
+		this.descricao = descricao;
+		this.atendimento = atendimento;
+	}
 
 	public Long getId() {
 		return id;
@@ -50,28 +62,12 @@ public class Solicitacao {
 		this.id = id;
 	}
 
-	public String getSolicitante() {
+	public Usuario getSolicitante() {
 		return solicitante;
 	}
 
-	public void setSolicitante(String solicitante) {
+	public void setSolicitante(Usuario solicitante) {
 		this.solicitante = solicitante;
-	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-
-	public Date getHora() {
-		return hora;
-	}
-
-	public void setHora(Date hora) {
-		this.hora = hora;
 	}
 
 	public TipoSolicitacao getTipoSolicitacao() {
@@ -82,11 +78,11 @@ public class Solicitacao {
 		this.tipoSolicitacao = tipoSolicitacao;
 	}
 
-	public Status getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
@@ -104,6 +100,5 @@ public class Solicitacao {
 
 	public void setAtendimento(Atendimento atendimento) {
 		this.atendimento = atendimento;
-	}
-	
+	}	
 }

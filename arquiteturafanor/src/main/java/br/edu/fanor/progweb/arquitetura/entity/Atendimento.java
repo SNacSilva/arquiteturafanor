@@ -1,14 +1,14 @@
 package br.edu.fanor.progweb.arquitetura.entity;
 
 import java.util.Date;
-import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,25 +18,21 @@ import javax.persistence.TemporalType;
 public class Atendimento {
 
 	@Id
+	@Column(name = "atendimento_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column
 	@Temporal(TemporalType.DATE)
 	private Date data;
 	
+	@Column
 	@Temporal(TemporalType.TIME)
 	private Date hora;
 	
-	@OneToMany(mappedBy="atendimento", fetch=FetchType.LAZY)
-	private List<Solicitacao> solicitacoes;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	@OneToOne
+	@PrimaryKeyJoinColumn(name = "solicitacao_id")
+	private Solicitacao solicitacao;
 
 	public Date getData() {
 		return data;
@@ -54,12 +50,11 @@ public class Atendimento {
 		this.hora = hora;
 	}
 
-	public List<Solicitacao> getSolicitacoes() {
-		return solicitacoes;
+	public Solicitacao getSolicitacao() {
+		return solicitacao;
 	}
 
-	public void setSolicitacoes(List<Solicitacao> solicitacoes) {
-		this.solicitacoes = solicitacoes;
+	public void setSolicitacao(Solicitacao solicitacao) {
+		this.solicitacao = solicitacao;
 	}
-	
 }

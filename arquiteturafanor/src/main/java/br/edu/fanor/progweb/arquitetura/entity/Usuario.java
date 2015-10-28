@@ -1,18 +1,26 @@
 package br.edu.fanor.progweb.arquitetura.entity;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import br.edu.fanor.progweb.arquitetura.enums.TipoUsuario;
 
 @Entity
 @Table
+@Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name="tipo_usuario", discriminatorType=DiscriminatorType.INTEGER)
 public class Usuario {
 
 	@Id
@@ -35,14 +43,9 @@ public class Usuario {
 	@ManyToOne
 	@JoinColumn(name = "curso_fk", referencedColumnName = "curso_id")
 	private Curso curso;
-
-	public Usuario(String matricula, String login, String nome, String senha, Curso curso) {
-		this.matricula = matricula;
-		this.login = login;
-		this.nome = nome;
-		this.senha = senha;
-		this.curso = curso;
-	}
+	
+	@Enumerated(EnumType.ORDINAL)
+	private TipoUsuario tipoUsuario;
 
 	public Long getId() {
 		return id;
@@ -50,6 +53,14 @@ public class Usuario {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getMatricula() {
@@ -68,14 +79,6 @@ public class Usuario {
 		this.login = login;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getSenha() {
 		return senha;
 	}
@@ -83,4 +86,22 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
+	
 }

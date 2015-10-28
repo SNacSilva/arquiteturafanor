@@ -24,12 +24,6 @@ public class Curso {
 	@Column(name = "nome_curso")
 	private String nome;
 	
-	public Curso(Long id, String nome) {
-		super();
-		this.id = id;
-		this.nome = nome;
-	}
-
 	public Long getId() {
 		return id;
 	}

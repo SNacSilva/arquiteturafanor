@@ -22,13 +22,6 @@ public class TipoSolicitacao {
 	@Column
 	private String descricao;
 
-	public TipoSolicitacao(Long id, String nome, String descricao) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.descricao = descricao;
-	}
-
 	public Long getId() {
 		return id;
 	}

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +17,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import br.edu.fanor.progweb.arquitetura.enums.TipoStatus;
+import br.edu.fanor.progweb.arquitetura.enums.TipoUsuario;
 
 @Entity
 @Table
@@ -33,26 +38,14 @@ public class Solicitacao {
 	@JoinColumn(name = "tipo_solicitacao_fk", referencedColumnName = "tipo_solicitacao_id")
 	private TipoSolicitacao tipoSolicitacao;
 	
-	@Column(name = "status_id")
-	private int status;
+	@Enumerated(EnumType.ORDINAL)
+	private TipoStatus tipoStatus;
 	
 	@Column
 	private String descricao;
 	
 	@OneToOne(mappedBy = "solicitacao")
 	private Atendimento atendimento;
-
-	
-	public Solicitacao(Long id, Usuario solicitante,
-			TipoSolicitacao tipoSolicitacao, int status, String descricao,
-			Atendimento atendimento) {
-		this.id = id;
-		this.solicitante = solicitante;
-		this.tipoSolicitacao = tipoSolicitacao;
-		this.status = status;
-		this.descricao = descricao;
-		this.atendimento = atendimento;
-	}
 
 	public Long getId() {
 		return id;
@@ -78,12 +71,12 @@ public class Solicitacao {
 		this.tipoSolicitacao = tipoSolicitacao;
 	}
 
-	public int getStatus() {
-		return status;
+	public TipoStatus getTipoStatus() {
+		return tipoStatus;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setTipoStatus(TipoStatus tipoStatus) {
+		this.tipoStatus = tipoStatus;
 	}
 
 	public String getDescricao() {
@@ -100,5 +93,5 @@ public class Solicitacao {
 
 	public void setAtendimento(Atendimento atendimento) {
 		this.atendimento = atendimento;
-	}	
+	}
 }

@@ -6,6 +6,9 @@
 >>>>>>> 8b3b190e25bb08d635eea23d28bac5d9518dae82
 *.class
 
+# Files
+.classpath
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.edu.fanor.progweb.arquitetura.bussines.UsuarioBO;
+import br.edu.fanor.progweb.arquitetura.entity.Usuario;
 import br.edu.fanor.progweb.arquitetura.entity.examples.Usuarios;
 import br.edu.fanor.progweb.arquitetura.utils.Navigation;
 /**
@@ -23,7 +24,7 @@ public class ListUsuarioManager {
 	@Autowired
 	private UsuarioBO usuarioBO;
 	private String nome;
-	private List<Usuarios> usuarios;
+	private List<Usuario> usuarios;
 	
 	public void lista(){
 		
@@ -63,10 +64,10 @@ public class ListUsuarioManager {
 		this.nome = nome;
 	}
 
-	public List<Usuarios> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
-	public void setUsuarios(List<Usuarios> usuarios) {
+	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 	

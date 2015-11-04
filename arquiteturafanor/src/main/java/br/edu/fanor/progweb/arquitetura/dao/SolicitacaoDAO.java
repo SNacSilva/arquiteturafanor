@@ -38,11 +38,11 @@ public class SolicitacaoDAO {
 		entityManager.merge(solicitacao);
 	}
 
-	public Solicitacao buscarPorSolicitacao(Calendar data ) {
+	public Solicitacao buscarPorSolicitacao(Solicitacao solicitacao) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Solicitacao> criteriaQuery = criteriaBuilder.createQuery(Solicitacao.class);
-		Root<Solicitacao> solicitacao = criteriaQuery.from(Solicitacao.class);
-		criteriaQuery.where(criteriaBuilder.equal(solicitacao.<String> get("data"), data));
+		Root<Solicitacao> soli = criteriaQuery.from(Solicitacao.class);
+		criteriaQuery.where(criteriaBuilder.equal(soli.<Solicitacao> get("solicitacao"), solicitacao));
 
 		Query query = entityManager.createQuery(criteriaQuery);
 		try {

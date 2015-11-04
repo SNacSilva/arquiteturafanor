@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.edu.fanor.progweb.arquitetura.entity.Usuario;
 import br.edu.fanor.progweb.arquitetura.entity.examples.Usuarios;
 import br.edu.fanor.progweb.arquitetura.exceptions.DAOException;
 
@@ -28,7 +29,7 @@ public class UsuarioDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void salvar(Usuarios usuario) {
+	public void salvar(Usuario usuario) {
 		entityManager.persist(usuario);
 	}
 	
@@ -66,7 +67,7 @@ public class UsuarioDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Usuarios> listarPorNome(String nome) {
+	public List<Usuario> listarPorNome(String nome) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Usuarios> criteriaQuery = criteriaBuilder.createQuery(Usuarios.class);
 		Root<Usuarios> usuarios = criteriaQuery.from(Usuarios.class);

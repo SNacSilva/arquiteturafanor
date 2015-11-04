@@ -11,6 +11,7 @@ import br.edu.fanor.progweb.arquitetura.aspectj.Loggable;
 import br.edu.fanor.progweb.arquitetura.aspectj.PermitAll;
 import br.edu.fanor.progweb.arquitetura.aspectj.RolesAllowed;
 import br.edu.fanor.progweb.arquitetura.dao.UsuarioDAO;
+import br.edu.fanor.progweb.arquitetura.entity.Usuario;
 import br.edu.fanor.progweb.arquitetura.entity.examples.Usuarios;
 import br.edu.fanor.progweb.arquitetura.exceptions.DAOException;
 
@@ -27,9 +28,7 @@ public class UsuarioBO {
 	private UsuarioDAO usuarioDAO;
 
 	@RolesAllowed(value = { "INCLUIR_USUARIO" })
-	public void salvar(Usuarios usuario) {
-		usuario.setAtivo(false);
-		usuario.setPrimeiroAcesso(true);
+	public void salvar(Usuario usuario) {
 		usuarioDAO.salvar(usuario);
 	}
 
@@ -52,8 +51,8 @@ public class UsuarioBO {
 
 	@RolesAllowed(value = { "LISTAR_USUARIO" })
 	@Loggable(enable = false)
-	public List<Usuarios> listaUsuarioPorNome(String nome) {
-		List<Usuarios> usuarios = usuarioDAO.listarPorNome(nome);
+	public List<Usuario> listaUsuarioPorNome(String nome) {
+		List<Usuario> usuarios = usuarioDAO.listarPorNome(nome);
 		return usuarios;
 	}
 

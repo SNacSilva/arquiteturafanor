@@ -1,16 +1,12 @@
 package br.edu.fanor.progweb.arquitetura.entity;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -19,8 +15,6 @@ import br.edu.fanor.progweb.arquitetura.enums.TipoUsuario;
 
 @Entity
 @Table
-@Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorColumn(name="tipo_usuario", discriminatorType=DiscriminatorType.INTEGER)
 public class Usuario {
 
 	@Id
@@ -40,6 +34,23 @@ public class Usuario {
 	@Column
 	private String senha;
 	
+	@Column
+	private String email;
+	
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "curso_fk", referencedColumnName = "curso_id")
 	private Curso curso;

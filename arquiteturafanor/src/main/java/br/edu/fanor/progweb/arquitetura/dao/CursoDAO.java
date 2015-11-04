@@ -35,7 +35,7 @@ public class CursoDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Curso> listarPorTipo(Curso descricao) {
+	public List<Curso> listarPorNome(Curso descricao) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Curso> criteriaQuery = criteriaBuilder.createQuery(Curso.class);
 		Root<Curso> curso = criteriaQuery.from(Curso.class);

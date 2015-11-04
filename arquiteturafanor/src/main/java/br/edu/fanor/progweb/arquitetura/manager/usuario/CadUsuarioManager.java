@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.edu.fanor.progweb.arquitetura.bussines.UsuarioBO;
+import br.edu.fanor.progweb.arquitetura.entity.Usuario;
 import br.edu.fanor.progweb.arquitetura.entity.examples.Papeis;
 import br.edu.fanor.progweb.arquitetura.entity.examples.Usuarios;
 import br.edu.fanor.progweb.arquitetura.utils.Encripta;
@@ -32,14 +33,12 @@ public class CadUsuarioManager {
 	private String senha;
 	
 	public String salvar(){
-		Usuarios usuario = new Usuarios();
+		Usuario usuario = new Usuario();
 		usuario.setNome(nome);
 		usuario.setEmail(email);
 		usuario.setSenha(Encripta.encripta(senha));
 		Papeis p = new Papeis();
 		p.setNome("Administrador");
-		usuario.setPapeis(new ArrayList<Papeis>());
-		usuario.getPapeis().add(p);
 		usuarioBO.salvar(usuario);
 		MessagesUtils.info("Usuário salvo com sucesso!");
 		listUsuario.lista();

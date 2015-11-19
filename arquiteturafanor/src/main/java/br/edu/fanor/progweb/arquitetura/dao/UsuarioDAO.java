@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.fanor.progweb.arquitetura.entity.Usuario;
-import br.edu.fanor.progweb.arquitetura.entity.examples.Usuarios;
 import br.edu.fanor.progweb.arquitetura.exceptions.DAOException;
 
 /**
@@ -33,34 +32,34 @@ public class UsuarioDAO {
 		entityManager.persist(usuario);
 	}
 	
-	public void atualizar(Usuarios usuario){
+	public void atualizar(Usuario usuario){
 		entityManager.merge(usuario);
 	}
 	
-	public Usuarios buscarPorEmail(String email){
+	public Usuario buscarPorEmail(String email){
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Usuarios> criteriaQuery = criteriaBuilder.createQuery(Usuarios.class);
-		Root<Usuarios> usuarios = criteriaQuery.from(Usuarios.class);
-		criteriaQuery.where(criteriaBuilder.equal(usuarios.<String>get("email"), email));
+		CriteriaQuery<Usuario> criteriaQuery = criteriaBuilder.createQuery(Usuario.class);
+		Root<Usuario> usuario = criteriaQuery.from(Usuario.class);
+		criteriaQuery.where(criteriaBuilder.equal(usuario.<String>get("email"), email));
 		
 		Query query = entityManager.createQuery(criteriaQuery);
 		try {
-			return (Usuarios)query.getSingleResult();
+			return (Usuario)query.getSingleResult();
 		} catch(NoResultException e){
 			return null;
 		}
 	}
 	
-	public Usuarios buscarPorEmailSenha(String email, String senha){
+	public Usuario buscarPorEmailSenha(String email, String senha){
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Usuarios> criteriaQuery = criteriaBuilder.createQuery(Usuarios.class);
-		Root<Usuarios> usuarios = criteriaQuery.from(Usuarios.class);
-		criteriaQuery.where(criteriaBuilder.equal(usuarios.<String>get("email"), email));
-		criteriaQuery.where(criteriaBuilder.equal(usuarios.<String>get("senha"), senha));
+		CriteriaQuery<Usuario> criteriaQuery = criteriaBuilder.createQuery(Usuario.class);
+		Root<Usuario> usuario = criteriaQuery.from(Usuario.class);
+		criteriaQuery.where(criteriaBuilder.equal(usuario.<String>get("email"), email));
+		criteriaQuery.where(criteriaBuilder.equal(usuario.<String>get("senha"), senha));
 		
 		Query query = entityManager.createQuery(criteriaQuery);
 		try {
-			return (Usuarios)query.getSingleResult();
+			return (Usuario)query.getSingleResult();
 		} catch(NoResultException e){
 			return null;
 		}
@@ -69,28 +68,37 @@ public class UsuarioDAO {
 	@SuppressWarnings("unchecked")
 	public List<Usuario> listarPorNome(String nome) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Usuarios> criteriaQuery = criteriaBuilder.createQuery(Usuarios.class);
-		Root<Usuarios> usuarios = criteriaQuery.from(Usuarios.class);
-		criteriaQuery.where(criteriaBuilder.like(usuarios.<String>get("nome"), "%"+nome+"%"));
+		CriteriaQuery<Usuario> criteriaQuery = criteriaBuilder.createQuery(Usuario.class);
+		Root<Usuario> usuario = criteriaQuery.from(Usuario.class);
+		criteriaQuery.where(criteriaBuilder.like(usuario.<String>get("nome"), "%"+nome+"%"));
 		
 		Query query = entityManager.createQuery(criteriaQuery);
 		return query.getResultList();
 	}
 	
-	public Usuarios buscaPorId(Integer id) throws DAOException {
-		String jpql = "select u from Usuarios u where u.id = :id";
+	public Usuario buscaPorId(Integer id) throws DAOException {
+		String jpql = "select u from Usuario u where u.id = :id";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("id", id);
 		
 		try {
-			return (Usuarios) query.getSingleResult();
+			return (Usuario) query.getSingleResult();
 		} catch(NoResultException e){
 			return null;
 		} 
 		
 	}
 	
-	public void excluir(Usuarios usuario) {
+	public void excluir(Usuario usuario) {
 		entityManager.remove(usuario);
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public Usuario buscaPorId(Long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

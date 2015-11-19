@@ -25,12 +25,12 @@ public class UsuarioDAOTest {
 	public void testSalvar() throws Exception {
 		
 		Usuario usuario = new Usuario();
-		usuario.setEmail("miwera@gmail.com");
-		usuario.setLogin("mirewamar");
-		usuario.setMatricula("1234253sdf");
-		usuario.setNome("mmewn");
-		usuario.setSenha("1234wew876");
-		usuario.setTipoUsuario(TipoUsuario.COORDENADOR);
+		usuario.setEmail("samantha@hotmail.com");
+		usuario.setLogin("sns");
+		usuario.setMatricula("12345u5");
+		usuario.setNome("Samantha");
+		usuario.setSenha("123456");
+		usuario.setTipoUsuario(TipoUsuario.ALUNO);
 			
 		usuarioDAO.salvar(usuario);
 		
@@ -41,8 +41,16 @@ public class UsuarioDAOTest {
 	
 	@Test
 	public void testListaPorNome(){
-		List<Usuario> usuario = usuarioDAO.listarPorNome("adri");
-		Assert.assertEquals(1, usuario.size());
+		List<Usuario> usuarios = usuarioDAO.listarPorNome("qwerasd");
+		Assert.assertEquals(1, usuarios.size());
+		}
+	
+	@Test
+	public void testBuscarPorEmail(){
+		Usuario usuarios = usuarioDAO.buscarPorEmail("samantha@gmail.com");
+		Assert.assertEquals(1, usuarios);
 	}
+	
+	
 
 }

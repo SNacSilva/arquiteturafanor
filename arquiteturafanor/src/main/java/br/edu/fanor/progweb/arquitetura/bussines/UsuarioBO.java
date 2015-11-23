@@ -12,7 +12,6 @@ import br.edu.fanor.progweb.arquitetura.aspectj.PermitAll;
 import br.edu.fanor.progweb.arquitetura.aspectj.RolesAllowed;
 import br.edu.fanor.progweb.arquitetura.dao.UsuarioDAO;
 import br.edu.fanor.progweb.arquitetura.entity.Usuario;
-import br.edu.fanor.progweb.arquitetura.entity.examples.Usuarios;
 import br.edu.fanor.progweb.arquitetura.exceptions.DAOException;
 
 /**
@@ -33,32 +32,32 @@ public class UsuarioBO {
 	}
 
 	@RolesAllowed(value = { "ALTERAR_USUARIO" })
-	public void atualizar(Usuarios usuario) {
+	public void atualizar(Usuario usuario) {
 		usuarioDAO.atualizar(usuario);
 	}
 
 	@PermitAll
 	@Loggable(enable = false)
-	public Usuarios loggar(String email, String senha) {
+	public Usuario loggar(String email, String senha) {
 		return usuarioDAO.buscarPorEmailSenha(email, senha);
 	}
 
 	@PermitAll
 	@Loggable(enable = false)
-	public Usuarios buscarUsuarioPorEmail(String email) {
+	public Usuario buscarUsuarioPorEmail(String email) {
 		return usuarioDAO.buscarPorEmail(email);
 	}
 
 	@RolesAllowed(value = { "LISTAR_USUARIO" })
 	@Loggable(enable = false)
 	public List<Usuario> listaUsuarioPorNome(String nome) {
-		List<Usuario> usuarios = usuarioDAO.listarPorNome(nome);
-		return usuarios;
+		List<Usuario> Usuario = usuarioDAO.listarPorNome(nome);
+		return Usuario;
 	}
 
 	@PermitAll
 	@Loggable(enable = false)
-	public Usuarios buscarPorId(Integer id) {
+	public Usuario buscarPorId(Integer id) {
 		try {
 			return usuarioDAO.buscaPorId(id);
 		} catch (DAOException e) {
@@ -69,7 +68,7 @@ public class UsuarioBO {
 
 	@RolesAllowed(value = { "EXCLUIR_USUARIO" })
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public void excluir(Usuarios usuario) {
+	public void excluir(Usuario usuario) {
 		try {
 			usuario = usuarioDAO.buscaPorId(usuario.getId());
 		} catch (DAOException e) {

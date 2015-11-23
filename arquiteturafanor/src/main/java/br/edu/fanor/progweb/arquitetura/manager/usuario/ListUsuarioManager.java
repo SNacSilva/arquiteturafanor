@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import br.edu.fanor.progweb.arquitetura.bussines.UsuarioBO;
 import br.edu.fanor.progweb.arquitetura.entity.Usuario;
-import br.edu.fanor.progweb.arquitetura.entity.examples.Usuarios;
 import br.edu.fanor.progweb.arquitetura.utils.Navigation;
 /**
  * @author patrick.cunha
@@ -32,12 +31,12 @@ public class ListUsuarioManager {
 		
 	}
 	
-	public void excluir(Usuarios usuario){
+	public void excluir(Usuario usuario){
 		usuarioBO.excluir(usuario);
 		usuarios = usuarioBO.listaUsuarioPorNome(nome);
 	}
 	
-	public String preparaAtualizar(Usuarios usuario){
+	public String preparaAtualizar(Usuario usuario){
 		System.out.println(usuario.getNome());
 		return null;
 	}
@@ -64,11 +63,11 @@ public class ListUsuarioManager {
 		this.nome = nome;
 	}
 
-	public List<Usuario> getUsuarios() {
+	public List<Usuario> getUsuario() {
 		return usuarios;
 	}
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public void setUsuario(List<Usuario> usuario) {
+		this.usuarios = usuario;
 	}
 	
 }

@@ -14,7 +14,7 @@ public class TipoSolicitacao {
 	@Id
 	@Column(name = "tipo_solicitacao_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	
 	@Column(name = "nome_tipo_solicitacao")
 	private String nome;
@@ -22,11 +22,11 @@ public class TipoSolicitacao {
 	@Column
 	private String descricao;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

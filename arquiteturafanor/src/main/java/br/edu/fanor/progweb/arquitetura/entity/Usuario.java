@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import org.hibernate.sql.Update;
 
 import br.edu.fanor.progweb.arquitetura.enums.TipoUsuario;
 
@@ -20,49 +23,35 @@ public class Usuario {
 	@Id
 	@Column(name = "usuario_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
+	private Integer id;
+
 	@Column(name = "nome_usuario")
 	private String nome;
-	
+
 	@Column
 	private String matricula;
-	
+
 	@Column
-	private String login;	
-	
+	private String login;
+
 	@Column
 	private String senha;
-	
+
 	@Column
 	private String email;
-	
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	@ManyToOne
 	@JoinColumn(name = "curso_fk", referencedColumnName = "curso_id")
 	private Curso curso;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	private TipoUsuario tipoUsuario;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -90,6 +79,14 @@ public class Usuario {
 		this.login = login;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getSenha() {
 		return senha;
 	}
@@ -114,5 +111,4 @@ public class Usuario {
 		this.tipoUsuario = tipoUsuario;
 	}
 
-	
 }

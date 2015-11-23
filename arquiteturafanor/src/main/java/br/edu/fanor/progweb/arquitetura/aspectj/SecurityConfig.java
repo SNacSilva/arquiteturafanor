@@ -4,9 +4,6 @@
 package br.edu.fanor.progweb.arquitetura.aspectj;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,9 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.edu.fanor.progweb.arquitetura.entity.examples.Papeis;
-import br.edu.fanor.progweb.arquitetura.entity.examples.Permissoes;
-import br.edu.fanor.progweb.arquitetura.entity.examples.Usuarios;
+import br.edu.fanor.progweb.arquitetura.entity.Usuario;
 import br.edu.fanor.progweb.arquitetura.to.SegurancaTO;
 
 /**
@@ -48,58 +43,12 @@ public class SecurityConfig {
 		}
 
 		// Contexto de segurança do usuário logado
-		Usuarios usuario = this.segurancaTO.getUsuario();
+		Usuario usuario = this.segurancaTO.getUsuario();
 		if (usuario == null || !this.segurancaTO.isAutenticado()) {
 			this.dispararAcessoNegado();
-		}
-
-		LOG.debug(SECURITY_TAG + "Usuário: " + usuario);
-		LOG.debug(SECURITY_TAG + "Funcionalidade acessada: "
-				+ joinPoint.getSignature());
-
-		//Se o usuario por Administrador, libera todos os acessos
-		for (Papeis papel : usuario.getPapeis()) {
-			if (papel.getNome().equals("Administrador")) {
-				return;
 			}
 		}
 
-		RolesAllowed permissoesDoMetodo = metodo
-				.getAnnotation(RolesAllowed.class) != null ? metodo
-				.getAnnotation(RolesAllowed.class) : metodo.getDeclaringClass()
-				.getAnnotation(RolesAllowed.class);
-				
-		if(permissoesDoMetodo != null){
-			final List<String> permissoesRequeridas = new ArrayList<String>(Arrays.asList(permissoesDoMetodo.value()));
-			final List<String> permissoesDoUsuario = this.retornaPermissoesDoUsuario(usuario);
-			//interseccao entre as listas
-			permissoesRequeridas.retainAll(permissoesDoUsuario);
-			if(permissoesRequeridas.size() > 0){
-				return;
-			}
-		} else {
-			this.dispararAcessoNegado();
-		}
-
-	}
-
-	/**
-	 * @param usuario
-	 * @return Lista de permissoes do usuario
-	 */
-	private List<String> retornaPermissoesDoUsuario(Usuarios usuario) {
-		List<String> permissoesDoUsuario = new ArrayList<String>();
-		for (Papeis papel : usuario.getPapeis()) {
-			for (Permissoes permissao : papel.getPermissoes()) {
-				permissoesDoUsuario.add(permissao.getPermissao());
-			}
-		}
-		return permissoesDoUsuario;
-	}
-
-	/**
-	 * 
-	 */
 	private void dispararAcessoNegado() {
 		SecurityException se = new SecurityException(SECURITY_TAG + "Capturada uma tentativa de acesso indevido. Tentativa abortada.");
 		LOG.debug(SECURITY_TAG + "Capturada uma tentativa de acesso indevido. Tentativa abortada.", se);

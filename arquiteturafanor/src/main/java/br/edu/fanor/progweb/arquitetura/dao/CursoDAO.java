@@ -1,8 +1,11 @@
 package br.edu.fanor.progweb.arquitetura.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -14,6 +17,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.fanor.progweb.arquitetura.entity.Curso;
+import br.edu.fanor.progweb.arquitetura.entity.Usuario;
+import br.edu.fanor.progweb.arquitetura.exceptions.DAOException;
 
 /**
  * @author Samantha Silva
@@ -35,17 +40,21 @@ public class CursoDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Curso> listarPorNome(Curso descricao) {
+	public List<Curso> listarPorNome(String nome) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Curso> criteriaQuery = criteriaBuilder.createQuery(Curso.class);
 		Root<Curso> curso = criteriaQuery.from(Curso.class);
-		criteriaQuery.where(criteriaBuilder.like(curso.<String> get("descricao"), "%" + descricao + "%"));
+		criteriaQuery.where(criteriaBuilder.equal(curso.<String> get("nome"), nome));
 
 		Query query = entityManager.createQuery(criteriaQuery);
 		return query.getResultList();
 	}
 
-	public void excluir(Curso curso) {
-		entityManager.remove(curso);
+	public void excluir(Curso nome){
+		
+		entityManager.remove(nome);
+			
+		
+	
 	}
 }

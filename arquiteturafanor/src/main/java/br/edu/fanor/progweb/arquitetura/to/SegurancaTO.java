@@ -9,7 +9,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.springframework.stereotype.Component;
 
-import br.edu.fanor.progweb.arquitetura.entity.examples.Usuarios;
+import br.edu.fanor.progweb.arquitetura.entity.Usuario;
 
 /**
  * @author patrick.cunha
@@ -21,17 +21,17 @@ public class SegurancaTO implements Serializable {
 
 	private static final long serialVersionUID = -9069250861713212366L;
 	
-	private Usuarios usuario;
+	private Usuario usuario;
 
 	public boolean isAutenticado() {
 		return usuario != null;
 	}
 	
-	public void setUsuario(Usuarios usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 	
-	public Usuarios getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
 

@@ -12,12 +12,14 @@ import br.edu.fanor.progweb.arquitetura.aspectj.PermitAll;
 import br.edu.fanor.progweb.arquitetura.aspectj.RolesAllowed;
 import br.edu.fanor.progweb.arquitetura.dao.UsuarioDAO;
 import br.edu.fanor.progweb.arquitetura.entity.Usuario;
+import br.edu.fanor.progweb.arquitetura.exceptions.BOException;
 import br.edu.fanor.progweb.arquitetura.exceptions.DAOException;
 
 /**
  * @author patrick.cunha
  * 
  */
+
 @Loggable
 @Component
 @Transactional(propagation=Propagation.REQUIRED)
@@ -25,21 +27,44 @@ public class UsuarioBO {
 
 	@Autowired
 	private UsuarioDAO usuarioDAO;
-
+	private Usuario user;
 	@RolesAllowed(value = { "INCLUIR_USUARIO" })
-	public void salvar(Usuario usuario) {
+	public void salvar(Usuario usuario) throws BOException {
+				
+		user = usuarioDAO.buscarPorLogin(usuario.getLogin());
+		if(user != null){
+			throw new BOException("Já existe um usuário cadastrado com esse login");
+		}
+		user = usuarioDAO.buscarPorEmail(usuario.getEmail());
+		if(user != null){
+			throw new BOException("Já existe um usuário cadastrado com esse e-mail");
+		}
 		usuarioDAO.salvar(usuario);
 	}
 
 	@RolesAllowed(value = { "ALTERAR_USUARIO" })
-	public void atualizar(Usuario usuario) {
+	public void atualizar(Usuario usuario) throws BOException {
+		user = usuarioDAO.buscarPorLogin(usuario.getLogin());
+		if(user != null){
+			throw new BOException("Já existe um usuário cadastrado com esse login");
+		}
+		user = usuarioDAO.buscarPorEmail(usuario.getEmail());
+		if(user != null){
+			throw new BOException("Já existe um usuário cadastrado com esse e-mail");
+		}
+		
 		usuarioDAO.atualizar(usuario);
 	}
 
 	@PermitAll
 	@Loggable(enable = false)
-	public Usuario loggar(String email, String senha) {
-		return usuarioDAO.buscarPorEmailSenha(email, senha);
+	public Usuario loggar(String login, String senha) throws BOException {
+		user = usuarioDAO.buscarPorLoginSenha(login, senha);
+		if(user == null){
+			throw new BOException("Os dados de login não conferem.");
+		}
+		return user;
+		
 	}
 
 	@PermitAll
@@ -66,15 +91,13 @@ public class UsuarioBO {
 		return null;
 	}
 
+
 	@RolesAllowed(value = { "EXCLUIR_USUARIO" })
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public void excluir(Usuario usuario) {
-		try {
-			usuario = usuarioDAO.buscaPorId(usuario.getId());
-		} catch (DAOException e) {
-			e.printStackTrace();
-		}
+	public void excluir(Usuario usuario) throws DAOException {
+		usuario = usuarioDAO.buscaPorId(usuario.getId());
 		usuarioDAO.excluir(usuario);
 	}
 
+	
 }

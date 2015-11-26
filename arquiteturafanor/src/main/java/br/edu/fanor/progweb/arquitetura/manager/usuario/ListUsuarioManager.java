@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import br.edu.fanor.progweb.arquitetura.bussines.UsuarioBO;
 import br.edu.fanor.progweb.arquitetura.entity.Usuario;
-import br.edu.fanor.progweb.arquitetura.entity.examples.Usuarios;
+import br.edu.fanor.progweb.arquitetura.exceptions.DAOException;
 import br.edu.fanor.progweb.arquitetura.utils.Navigation;
 /**
  * @author patrick.cunha
@@ -24,20 +24,20 @@ public class ListUsuarioManager {
 	@Autowired
 	private UsuarioBO usuarioBO;
 	private String nome;
-	private List<Usuario> usuarios;
+	private List<Usuario> usuario;
 	
 	public void lista(){
 		
-		usuarios = usuarioBO.listaUsuarioPorNome(nome);
+		usuario = usuarioBO.listaUsuarioPorNome(nome);
 		
 	}
 	
-	public void excluir(Usuarios usuario){
-		usuarioBO.excluir(usuario);
-		usuarios = usuarioBO.listaUsuarioPorNome(nome);
+	public void excluir(Usuario user) throws DAOException{
+		usuarioBO.excluir(user);
+		usuario = usuarioBO.listaUsuarioPorNome(nome);
 	}
 	
-	public String preparaAtualizar(Usuarios usuario){
+	public String preparaAtualizar(Usuario usuario){
 		System.out.println(usuario.getNome());
 		return null;
 	}
@@ -49,7 +49,7 @@ public class ListUsuarioManager {
 	
 	public void limparDados(){
 		this.nome = "";
-		this.usuarios = null;
+		this.usuario = null;
 	}
 	
 	
@@ -64,11 +64,11 @@ public class ListUsuarioManager {
 		this.nome = nome;
 	}
 
-	public List<Usuario> getUsuarios() {
-		return usuarios;
+	public List<Usuario> getUsuario() {
+		return usuario;
 	}
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public void setUsuario(List<Usuario> usuario) {
+		this.usuario = usuario;
 	}
 	
 }

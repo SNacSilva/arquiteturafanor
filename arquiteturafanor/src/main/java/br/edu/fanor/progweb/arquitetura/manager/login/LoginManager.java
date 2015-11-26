@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.edu.fanor.progweb.arquitetura.bussines.UsuarioBO;
-import br.edu.fanor.progweb.arquitetura.entity.examples.Usuarios;
+import br.edu.fanor.progweb.arquitetura.entity.Usuario;
 import br.edu.fanor.progweb.arquitetura.to.SegurancaTO;
 import br.edu.fanor.progweb.arquitetura.utils.Encripta;
 import br.edu.fanor.progweb.arquitetura.utils.MessagesUtils;
@@ -29,13 +29,13 @@ public class LoginManager {
 	private UsuarioBO usuarioBO;
 	@Autowired
 	private SegurancaTO seguranca;
-	private Usuarios usuario = new Usuarios();
+	private Usuario usuario = new Usuario();
 	private boolean existsEmail;
 
 	public String loggar() {
-		Usuarios usuario = this.usuarioBO.loggar(this.usuario.getEmail(),
+		Usuario usuario = this.usuarioBO.loggar(this.usuario.getEmail(),
 				Encripta.encripta(this.usuario.getSenha()));
-		this.usuario = new Usuarios();
+		this.usuario = new Usuario();
 		if (usuario != null) {
 			seguranca.setUsuario(usuario);
 			existsEmail = true;
@@ -51,7 +51,7 @@ public class LoginManager {
 	/**
 	 * @return the usuario
 	 */
-	public Usuarios getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
 
@@ -59,7 +59,7 @@ public class LoginManager {
 	 * @param usuario
 	 *            the usuario to set
 	 */
-	public void setUsuario(Usuarios usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 

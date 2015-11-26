@@ -50,11 +50,24 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public Usuario buscarPorEmailSenha(String email, String senha){
+	public Usuario buscarPorLogin(String login){
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Usuario> criteriaQuery = criteriaBuilder.createQuery(Usuario.class);
 		Root<Usuario> usuario = criteriaQuery.from(Usuario.class);
-		criteriaQuery.where(criteriaBuilder.equal(usuario.<String>get("email"), email));
+		criteriaQuery.where(criteriaBuilder.equal(usuario.<String>get("login"), login));
+		
+		Query query = entityManager.createQuery(criteriaQuery);
+		try {
+			return (Usuario)query.getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		}
+	}
+	
+	public Usuario buscarPorSenha(String senha){
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Usuario> criteriaQuery = criteriaBuilder.createQuery(Usuario.class);
+		Root<Usuario> usuario = criteriaQuery.from(Usuario.class);
 		criteriaQuery.where(criteriaBuilder.equal(usuario.<String>get("senha"), senha));
 		
 		Query query = entityManager.createQuery(criteriaQuery);
@@ -65,6 +78,21 @@ public class UsuarioDAO {
 		}
 	}
 
+	public Usuario buscarPorLoginSenha(String login, String senha){
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Usuario> criteriaQuery = criteriaBuilder.createQuery(Usuario.class);
+		Root<Usuario> usuario = criteriaQuery.from(Usuario.class);
+		criteriaQuery.where(criteriaBuilder.equal(usuario.<String>get("login"), login));
+		criteriaQuery.where(criteriaBuilder.equal(usuario.<String>get("senha"), senha));
+		
+		Query query = entityManager.createQuery(criteriaQuery);
+		try {
+			return (Usuario)query.getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Usuario> listarPorNome(String nome) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

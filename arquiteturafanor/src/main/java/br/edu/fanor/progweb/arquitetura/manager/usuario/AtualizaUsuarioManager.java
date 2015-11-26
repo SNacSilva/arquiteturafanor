@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.edu.fanor.progweb.arquitetura.bussines.UsuarioBO;
-import br.edu.fanor.progweb.arquitetura.entity.examples.Usuarios;
+import br.edu.fanor.progweb.arquitetura.entity.Usuario;
 import br.edu.fanor.progweb.arquitetura.utils.MessagesUtils;
 import br.edu.fanor.progweb.arquitetura.utils.Navigation;
 /**
@@ -21,34 +21,32 @@ public class AtualizaUsuarioManager {
 
 	@Autowired
 	private UsuarioBO usuarioBO;
-	private Usuarios usuarioSelecionado;
+	private Usuario Usuarioelecionado;
 
 	public String atualizar() {
-		usuarioBO.atualizar(usuarioSelecionado);
+		usuarioBO.atualizar(Usuarioelecionado);
 		MessagesUtils.info("Usuário atualizado com sucesso!");
 
 		return Navigation.SUCESSO;
 	}
 
-	public String preparaAtualizar(Usuarios usuario) {
-		usuarioSelecionado = usuarioBO.buscarPorId(usuario.getId());
+	public String preparaAtualizar(Usuario usuario) {
+		Usuarioelecionado = usuarioBO.buscarPorId(usuario.getId());
 
 		return Navigation.ATUALIZA;
 	}
 	
 	public void limparDados(){
-		usuarioSelecionado.setNome("");
-		usuarioSelecionado.setEmail("");
-		usuarioSelecionado.setSenha("");
-		usuarioSelecionado.setAtivo(false);
-		usuarioSelecionado.setPrimeiroAcesso(true);
+		Usuarioelecionado.setNome("");
+		Usuarioelecionado.setEmail("");
+		Usuarioelecionado.setSenha("");
 	}
 
-	public Usuarios getUsuarioSelecionado() {
-		return usuarioSelecionado;
+	public Usuario getUsuarioelecionado() {
+		return Usuarioelecionado;
 	}
-	public void setUsuarioSelecionado(Usuarios usuarioSelecionado) {
-		this.usuarioSelecionado = usuarioSelecionado;
+	public void setUsuarioelecionado(Usuario Usuarioelecionado) {
+		this.Usuarioelecionado = Usuarioelecionado;
 	}
 	
 }

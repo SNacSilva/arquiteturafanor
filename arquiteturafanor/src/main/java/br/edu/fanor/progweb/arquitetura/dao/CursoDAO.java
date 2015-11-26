@@ -3,6 +3,7 @@ package br.edu.fanor.progweb.arquitetura.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.fanor.progweb.arquitetura.entity.Curso;
+import br.edu.fanor.progweb.arquitetura.entity.Usuario;
 
 /**
  * @author Samantha Silva
@@ -34,6 +36,20 @@ public class CursoDAO {
 		entityManager.merge(curso);
 	}
 
+	public Curso buscarPorNome(String nome){
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Curso> criteriaQuery = criteriaBuilder.createQuery(Curso.class);
+		Root<Curso> curso = criteriaQuery.from(Curso.class);
+		criteriaQuery.where(criteriaBuilder.equal(curso.<String>get("nome"), nome));
+		
+		Query query = entityManager.createQuery(criteriaQuery);
+		try {
+			return (Curso)query.getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Curso> listarPorNome(Curso descricao) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

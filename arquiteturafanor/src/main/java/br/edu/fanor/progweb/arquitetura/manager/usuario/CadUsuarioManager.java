@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 import br.edu.fanor.progweb.arquitetura.bussines.UsuarioBO;
 import br.edu.fanor.progweb.arquitetura.entity.Usuario;
-import br.edu.fanor.progweb.arquitetura.entity.examples.Papeis;
-import br.edu.fanor.progweb.arquitetura.entity.examples.Usuarios;
 import br.edu.fanor.progweb.arquitetura.utils.Encripta;
 import br.edu.fanor.progweb.arquitetura.utils.MessagesUtils;
 import br.edu.fanor.progweb.arquitetura.utils.Navigation;
@@ -37,8 +35,6 @@ public class CadUsuarioManager {
 		usuario.setNome(nome);
 		usuario.setEmail(email);
 		usuario.setSenha(Encripta.encripta(senha));
-		Papeis p = new Papeis();
-		p.setNome("Administrador");
 		usuarioBO.salvar(usuario);
 		MessagesUtils.info("Usuário salvo com sucesso!");
 		listUsuario.lista();

@@ -24,7 +24,10 @@ public class Encripta {
 			}
 			String senha = hexString.toString();
 			return senha;
-		} catch (NoSuchAlgorithmException | UnsupportedEncodingException ns) {
+		} catch (NoSuchAlgorithmException ns) {
+			ns.printStackTrace();
+			return null;
+		}catch (NoSuchAlgorithmException ns) {
 			ns.printStackTrace();
 			return null;
 		}

@@ -27,7 +27,7 @@ public class Encripta {
 		} catch (NoSuchAlgorithmException ns) {
 			ns.printStackTrace();
 			return null;
-		}catch (NoSuchAlgorithmException ns) {
+		}catch (UnsupportedEncodingException ns) {
 			ns.printStackTrace();
 			return null;
 		}

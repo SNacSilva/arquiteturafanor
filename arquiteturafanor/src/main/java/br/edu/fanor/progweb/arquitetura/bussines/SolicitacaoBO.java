@@ -12,6 +12,7 @@ import br.edu.fanor.progweb.arquitetura.aspectj.Loggable;
 import br.edu.fanor.progweb.arquitetura.aspectj.PermitAll;
 import br.edu.fanor.progweb.arquitetura.aspectj.RolesAllowed;
 import br.edu.fanor.progweb.arquitetura.dao.SolicitacaoDAO;
+import br.edu.fanor.progweb.arquitetura.entity.Atendimento;
 import br.edu.fanor.progweb.arquitetura.entity.Solicitacao;
 import br.edu.fanor.progweb.arquitetura.exceptions.DAOException;
 
@@ -33,7 +34,15 @@ public class SolicitacaoBO {
 	public void salvar(Solicitacao solicitacao) {
 
 		soliDAO.salvar(solicitacao);
-		
+
+	}
+
+	@RolesAllowed(value = { "INCLUIR_SOLICITACAO" })
+	public void salvar(Solicitacao solicitacao, Atendimento ate) {
+
+		soliDAO.salvar(solicitacao);
+		att.salvar(ate);
+
 	}
 
 	@RolesAllowed(value = { "ATUALIZAR_SOLICITACAO" })
@@ -42,6 +51,7 @@ public class SolicitacaoBO {
 		soli = soliDAO.buscarPorSolicitacao(solicitacao);
 		soliDAO.atualizar(soli);
 
+		
 	}
 
 	@PermitAll
@@ -79,12 +89,10 @@ public class SolicitacaoBO {
 
 	}
 
-
-
 	@RolesAllowed(value = { "EXCLUIR_SOLICITACAO" })
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void excluir(Solicitacao solicitacao) throws DAOException {
-		
+
 		solicitacao = soliDAO.buscaPorId(solicitacao.getId());
 		soliDAO.excluir(solicitacao);
 	}

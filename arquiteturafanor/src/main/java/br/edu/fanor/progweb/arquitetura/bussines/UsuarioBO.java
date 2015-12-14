@@ -22,21 +22,22 @@ import br.edu.fanor.progweb.arquitetura.exceptions.DAOException;
 
 @Loggable
 @Component
-@Transactional(propagation=Propagation.REQUIRED)
+@Transactional(propagation = Propagation.REQUIRED)
 public class UsuarioBO {
 
 	@Autowired
 	private UsuarioDAO usuarioDAO;
 	private Usuario user;
+
 	@RolesAllowed(value = { "INCLUIR_USUARIO" })
 	public void salvar(Usuario usuario) throws BOException {
-				
+
 		user = usuarioDAO.buscarPorLogin(usuario.getLogin());
-		if(user != null){
+		if (user != null) {
 			throw new BOException("Já existe um usuário cadastrado com esse login");
 		}
 		user = usuarioDAO.buscarPorEmail(usuario.getEmail());
-		if(user != null){
+		if (user != null) {
 			throw new BOException("Já existe um usuário cadastrado com esse e-mail");
 		}
 		usuarioDAO.salvar(usuario);
@@ -45,14 +46,14 @@ public class UsuarioBO {
 	@RolesAllowed(value = { "ALTERAR_USUARIO" })
 	public void atualizar(Usuario usuario) throws BOException {
 		user = usuarioDAO.buscarPorLogin(usuario.getLogin());
-		if(user != null){
+		if (user != null) {
 			throw new BOException("Já existe um usuário cadastrado com esse login");
 		}
 		user = usuarioDAO.buscarPorEmail(usuario.getEmail());
-		if(user != null){
+		if (user != null) {
 			throw new BOException("Já existe um usuário cadastrado com esse e-mail");
 		}
-		
+
 		usuarioDAO.atualizar(usuario);
 	}
 
@@ -60,11 +61,11 @@ public class UsuarioBO {
 	@Loggable(enable = false)
 	public Usuario loggar(String login, String senha) throws BOException {
 		user = usuarioDAO.buscarPorLoginSenha(login, senha);
-		if(user == null){
+		if (user == null) {
 			throw new BOException("Os dados de login não conferem.");
 		}
 		return user;
-		
+
 	}
 
 	@PermitAll
@@ -91,7 +92,6 @@ public class UsuarioBO {
 		return null;
 	}
 
-
 	@RolesAllowed(value = { "EXCLUIR_USUARIO" })
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void excluir(Usuario usuario) throws DAOException {
@@ -99,5 +99,4 @@ public class UsuarioBO {
 		usuarioDAO.excluir(usuario);
 	}
 
-	
 }

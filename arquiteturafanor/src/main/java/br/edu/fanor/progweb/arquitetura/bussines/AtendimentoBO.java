@@ -28,13 +28,19 @@ public class AtendimentoBO {
 	@Autowired
 	private Atendimento att;
 	private AtendimentoDAO attDAO;
-	private SolicitacaoDAO soliDAO;
-
+/*	private SolicitacaoDAO soliDAO;
+*/
 	@RolesAllowed(value = { "INCLUIR_ATENDIMENTO" })
 	public void salvar(Atendimento atendimento) {
 
 		attDAO.salvar(atendimento);
 
+	}
+	
+
+	@RolesAllowed(value = { "ATUALIZAR_SOLICITACAO" })
+	public void atualizar(Atendimento atendimento) {
+		attDAO.atualizar(atendimento);
 	}
 
 	@PermitAll

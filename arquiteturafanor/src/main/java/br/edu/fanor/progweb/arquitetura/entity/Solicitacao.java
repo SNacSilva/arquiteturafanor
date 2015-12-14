@@ -28,7 +28,7 @@ public class Solicitacao {
 	@Id
 	@Column(name = "solicitacao_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name = "solicitante_usuario_fk", referencedColumnName = "usuario_id")
@@ -47,11 +47,11 @@ public class Solicitacao {
 	@OneToOne(mappedBy = "solicitacao")
 	private Atendimento atendimento;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

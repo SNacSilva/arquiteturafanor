@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import br.edu.fanor.progweb.arquitetura.bussines.UsuarioBO;
 import br.edu.fanor.progweb.arquitetura.entity.Usuario;
+import br.edu.fanor.progweb.arquitetura.exceptions.BOException;
 import br.edu.fanor.progweb.arquitetura.to.SegurancaTO;
 import br.edu.fanor.progweb.arquitetura.utils.Encripta;
 import br.edu.fanor.progweb.arquitetura.utils.MessagesUtils;
@@ -32,7 +33,7 @@ public class LoginManager {
 	private Usuario usuario = new Usuario();
 	private boolean existsEmail;
 
-	public String loggar() {
+	public String loggar() throws BOException {
 		Usuario usuario = this.usuarioBO.loggar(this.usuario.getEmail(),
 				Encripta.encripta(this.usuario.getSenha()));
 		this.usuario = new Usuario();

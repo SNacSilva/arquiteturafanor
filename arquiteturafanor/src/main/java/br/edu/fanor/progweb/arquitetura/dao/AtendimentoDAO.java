@@ -37,7 +37,7 @@ public class AtendimentoDAO {
 		entityManager.merge(atendimento);
 	}
 
-	public Atendimento buscarPorSolicitacao(Calendar data) {
+	public Atendimento buscarPorAtendimento(Calendar data) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Atendimento> criteriaQuery = criteriaBuilder.createQuery(Atendimento.class);
 		Root<Atendimento> atendimento = criteriaQuery.from(Atendimento.class);
@@ -51,7 +51,7 @@ public class AtendimentoDAO {
 		}
 	}
 
-	public Atendimento buscarPorSolicitacaoHorario(Calendar data, Calendar hora) {
+	public Atendimento buscarPorDataHora(Calendar data, Calendar hora) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Atendimento> criteriaQuery = criteriaBuilder.createQuery(Atendimento.class);
 		Root<Atendimento> atendimento = criteriaQuery.from(Atendimento.class);

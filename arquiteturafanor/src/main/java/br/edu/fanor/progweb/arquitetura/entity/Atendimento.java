@@ -20,19 +20,29 @@ public class Atendimento {
 	@Id
 	@Column(name = "atendimento_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+	private Integer id;
+
 	@Column
 	@Temporal(TemporalType.DATE)
 	private Date data;
-	
+
 	@Column
 	@Temporal(TemporalType.TIME)
 	private Date hora;
-	
+
 	@OneToOne
 	@PrimaryKeyJoinColumn(name = "solicitacao_id")
 	private Solicitacao solicitacao;
+	
+	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public Date getData() {
 		return data;

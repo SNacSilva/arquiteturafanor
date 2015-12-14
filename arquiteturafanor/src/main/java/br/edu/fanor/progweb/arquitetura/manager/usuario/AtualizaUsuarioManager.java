@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import br.edu.fanor.progweb.arquitetura.bussines.UsuarioBO;
 import br.edu.fanor.progweb.arquitetura.entity.Usuario;
+import br.edu.fanor.progweb.arquitetura.exceptions.BOException;
 import br.edu.fanor.progweb.arquitetura.utils.MessagesUtils;
 import br.edu.fanor.progweb.arquitetura.utils.Navigation;
 /**
@@ -23,7 +24,7 @@ public class AtualizaUsuarioManager {
 	private UsuarioBO usuarioBO;
 	private Usuario Usuarioelecionado;
 
-	public String atualizar() {
+	public String atualizar() throws BOException {
 		usuarioBO.atualizar(Usuarioelecionado);
 		MessagesUtils.info("Usuário atualizado com sucesso!");
 
